@@ -1,4 +1,4 @@
-from time import time
+from time import time, localtime, strftime
 
 
 def log(*args, **kwargs):
