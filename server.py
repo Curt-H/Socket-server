@@ -44,10 +44,11 @@ class Request(object):
                 self.args[k] = v
         elif self.method == 'POST':
             self.path = path_with_args
-            form_list = self.body.split('&')
-            for a in form_list:
-                k, v = a.split('=')
-                self.form[k] = v
+            if self.body != '':
+                form_list = self.body.split('&')
+                for a in form_list:
+                    k, v = a.split('=')
+                    self.form[k] = v
 
 
 def recieve_request(connection):
@@ -63,6 +64,16 @@ def recieve_request(connection):
             return request.decode(encoding='utf-8')
 
 
+def make_response(request):
+    r = request
+    response_header = f'HTTP/1.1 200 OK\r\n\r\n'
+    response_body = f'({r.path})\n({r.args})|({r.form}))'
+    response = response_header + response_body
+    log(f'{r.method} {r.path} OK')
+
+    return response.encode()
+
+
 def process_connection(connection):
     request = recieve_request(connection)
 
@@ -73,6 +84,9 @@ def process_connection(connection):
     else:
         log(f'Raw request (length:{len(request)}):\n{request}')
         r = Request(request)
+
+    response = make_response(r)
+    connection.sendall(response)
 
 
 def app(host, port):
