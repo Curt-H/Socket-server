@@ -19,10 +19,13 @@ def recieve_request(connection):
 
 def process_connection(connection):
     request = recieve_request(connection)
+
+    # Chrome may send null request to keep connection alive, it may make programme crashed
+    # So here we need to make sure if request is null
     if len(request) == 0:
         log('收到空请求')
-    else: 
-        log(request)
+    else:
+        log(f'({request}),({len(request)})')
 
 
 def app(host, port):
@@ -30,8 +33,7 @@ def app(host, port):
         # bind host and port and listen
         s.bind((host, port))
         s.listen()
-        log(f'Start listening @ http://{host}:{port}')
-        log(f'You can access it at http://localhost')
+        log(f'Start listening @ http://{host}:{port}\nYou can access it at http://localhost')
 
         while True:
             # Accept the client connection
