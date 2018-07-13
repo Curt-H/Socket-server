@@ -1,3 +1,5 @@
+import _thread
+
 from util import log
 from socket import socket
 
@@ -15,6 +17,11 @@ def recieve_request(connection):
             return request.decode(encoding='utf-8')
 
 
+def process_connection(connection):
+    request = recieve_request(connection)
+    log(request)
+
+
 def app(host, port):
     with socket() as s:
         # bind host and port and listen
@@ -27,10 +34,7 @@ def app(host, port):
             # Accept the client connection
             client, address = s.accept()
             log(f'Connected by ({address})')
-
-            with client:
-                request = recieve_request(client)
-                log(request)
+            _thread.start_new_thread(process_connection, (client,))
 
 
 if __name__ == '__main__':
