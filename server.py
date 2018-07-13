@@ -19,7 +19,10 @@ def recieve_request(connection):
 
 def process_connection(connection):
     request = recieve_request(connection)
-    log(request)
+    if len(request) == 0:
+        log('收到空请求')
+    else: 
+        log(request)
 
 
 def app(host, port):
