@@ -9,7 +9,7 @@ def log(*args, **kwargs):
     print(*args, **kwargs)
     print('*' * 15)
 
-    with open('log.txt', 'w') as f:
+    with open('log.txt', 'a+') as f:
         print(dt, file=f)
         print(*args, **kwargs, file=f)
         print('*' * 15, file=f)
