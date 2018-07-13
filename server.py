@@ -2,6 +2,7 @@ import _thread
 import urllib.parse
 from util import log
 from socket import socket
+from route.public import route_public
 
 
 class Request(object):
@@ -66,11 +67,8 @@ def recieve_request(connection):
 
 def make_response(request):
     r = request
-    response_header = f'HTTP/1.1 200 OK\r\n\r\n'
-    response_body = f'({r.path})\n({r.args})|({r.form}))'
-    response = response_header + response_body
-    log(f'{r.method} {r.path} OK')
 
+    response = route_public(r.path)(r)
     return response.encode()
 
 
