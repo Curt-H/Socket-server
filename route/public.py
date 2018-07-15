@@ -14,6 +14,7 @@ def index(request):
 
 def image(request):
     r = request
+    # 获取文件的文件名, 后缀名和路径
     filename = r.args.get('f', 'none.png')
     file_type = filename.split('.')[-1]
     file = f'static/{filename}'
@@ -29,6 +30,7 @@ def image(request):
 
 def css(request):
     r = request
+    # 获取文件的文件名和路径
     filename = r.args.get('f', 'none.png')
     file = f'static/css/{filename}'
     log(f'GET file info\nname:{filename}\ntype:css\npath:{file}')
