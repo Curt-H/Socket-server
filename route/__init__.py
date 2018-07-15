@@ -4,5 +4,6 @@ def generate_header(state_code=200):
         '200': 'OK',
         '404': 'Not Found'
     }
-    header = f'HTTP/1.1 {sc} {state_dict[sc]}'
+    header = f'HTTP/1.1 {sc} {state_dict[sc]}\r\n' \
+             f'Content-Type:text/html\r\n'
     return header

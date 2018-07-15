@@ -33,7 +33,7 @@ class Request(object):
     def analyse_const(self, path_with_args):
         """
         :param path_with_args: path like this '/index?foo=bar'
-        :return: no return
+        :return: None
         """
         self.path = path_with_args
         if self.method == 'GET' and path_with_args.find('?') > 0:
