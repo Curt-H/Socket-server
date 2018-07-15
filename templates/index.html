@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>INDEX</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<h2>method: {{ r.method }}</h2>
+<h2>path: {{ r.path }}</h2>
+<h2>args: {{ r.args }}</h2>
+<h2>form: {{ r.form }}</h2>
+<form action="/" method="get">
+    <p>Input a name</p>
+    <div>
+        <input name="name" placeholder="Input a name">
+    </div>
+    <p>Input a value</p>
+    <div>
+        <input name="value" placeholder="Input a value">
+    </div>
+    <div>
+        <button type="submit">GET</button>
+    </div>
+</form>
+<form action="/" method="post">
+    <p>Input a name</p>
+    <div>
+        <input name="name" placeholder="Input a name">
+    </div>
+    <p>Input a value</p>
+    <div>
+        <input name="value" placeholder="Input a value">
+    </div>
+    <div>
+        <button type="submit">GET</button>
+    </div>
+</form>
+</body>
+</html>

@@ -74,19 +74,20 @@ def make_response(request):
 
 
 def process_connection(connection):
-    request = recieve_request(connection)
+    with connection:
+        request = recieve_request(connection)
 
-    # Chrome may send null request to keep connection alive, it may make programme crashed
-    # So here we need to make sure if request is null
-    if len(request) == 0:
-        log('收到空请求')
-    else:
-        log(f'Raw request (length:{len(request)}):\n{request}')
-        r = Request(request)
+        # Chrome may send null request to keep connection alive, it may make programme crashed
+        # So here we need to make sure if request is null
+        if len(request) == 0:
+            log('收到空请求')
+        else:
+            log(f'Raw request (length:{len(request)}):\n{request}')
+            r = Request(request)
 
-        response = make_response(r)
-        log(response)
-        connection.sendall(response)
+            response = make_response(r)
+            log(response)
+            connection.sendall(response)
 
 
 def app(host, port):

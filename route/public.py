@@ -1,13 +1,11 @@
 from route import generate_header
+from template import Template
 
 
 def index(request):
     r = request
-    header = generate_header()
-    body = f'<h1>Welcome!</h1>\r\n' \
-           f'<h2>path: {r.path}</h2>\r\n' \
-           f'<h2>args: {r.args}</h2>\r\n' \
-           f'<h2>form: {r.form}</h2>'
+    body = Template.render('index.html', r=r)
+    header = generate_header(len(body))
 
     response = header + body
     return response
@@ -15,9 +13,9 @@ def index(request):
 
 def error(request):
     r = request
-    header = generate_header(404)
-    body = f'<h1>404 NOT FOUND</h1>\n' \
-           f'<h2>the path [{r.path}] you required is not found</h2>'
+    body = Template.render('error.html', r=r)
+    header = generate_header(len(body), 404)
+
     response = header + body
     return response
 
