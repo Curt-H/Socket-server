@@ -61,7 +61,7 @@ def recieve_request(connection):
         r = connection.recv(buffer_size)
         request += r
         if len(r) < buffer_size:
-            log('All recieved')
+            log('All recieved', request)
             return request.decode(encoding='utf-8')
 
 
@@ -69,6 +69,7 @@ def make_response(request):
     r = request
 
     response = route_public(r.path)(r)
+    log(response)
     return response.encode()
 
 
@@ -83,8 +84,9 @@ def process_connection(connection):
         log(f'Raw request (length:{len(request)}):\n{request}')
         r = Request(request)
 
-    response = make_response(r)
-    connection.sendall(response)
+        response = make_response(r)
+        log(response)
+        connection.sendall(response)
 
 
 def app(host, port):
