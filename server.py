@@ -70,7 +70,7 @@ def make_response(request):
 
     response = route_public(r.path)(r)
     log(response)
-    return response.encode()
+    return response
 
 
 def process_connection(connection):
