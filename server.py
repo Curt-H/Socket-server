@@ -45,9 +45,10 @@ class Request(object):
                 self.args[k] = v
         elif self.method == 'POST':
             self.path = path_with_args
+            self.body = urllib.parse.unquote_plus(self.body)
             if self.body != '':
                 form_list = self.body.split('&')
-                for a in form_list:
+                for a in form_list: 
                     k, v = a.split('=')
                     self.form[k] = v
 
